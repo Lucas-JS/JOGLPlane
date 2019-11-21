@@ -1,6 +1,8 @@
 package luzambiente;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
@@ -9,8 +11,6 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT; //primitivas 3D
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -45,7 +45,8 @@ public class PlaneAps implements GLEventListener, KeyListener {
         glut = new GLUT(); //objeto da biblioteca glut
 
         //define a cor da janela (R, G, G, alpha)
-        gl.glClearColor(0, 0, 0, 1);
+        gl.glClearColor(0, 0.1f, 0.3f, 1);
+        
         //limpa a janela com a cor especificada
         //limpa o buffer de profundidade
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
@@ -56,7 +57,16 @@ public class PlaneAps implements GLEventListener, KeyListener {
         *
          */
         // criar a cena aqui....
-        gl.glEnable(GL2.GL_COLOR_MATERIAL);
+        //ceu(gl);
+        //nuvens(gl);
+        cena1(gl);
+        gl.glFlush();
+        
+    }
+    
+    public void cena1(GL2 gl) {
+    	
+    	gl.glEnable(GL2.GL_COLOR_MATERIAL);
         gl.glEnable(GL2.GL_LIGHTING);
         gl.glShadeModel(GL2.GL_FLAT);
         float luzAmbiente[] = {0f, 0f, .5f, 1.0f}; //cor
@@ -71,14 +81,17 @@ public class PlaneAps implements GLEventListener, KeyListener {
                 anguloX = 0;
                 anguloY = 0; 
                 anguloZ = 0;
-         gl.glPushMatrix();
+                
+        gl.glPushMatrix();
         
         gl.glRotatef(anguloX, 1, 0, 0);
         gl.glRotatef(anguloY, 0, 1, 0);
         gl.glRotatef(anguloZ, 0, 0, 1);
 
         gl.glScalef(1.5f, 1.5f, 1.5f);
+        
         planeTakeoff();
+        
         gl.glPopMatrix();
         break;
         
@@ -99,9 +112,8 @@ public class PlaneAps implements GLEventListener, KeyListener {
             default:
                 break;
         }
-        gl.glFlush();
     }
-
+    
     public void planeTakeoff() {
         gl.glRotatef(-90, 0, 1, 0);
         gl.glRotatef(kx, 1, 0, 0);

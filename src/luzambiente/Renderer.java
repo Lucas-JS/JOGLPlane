@@ -12,8 +12,8 @@ import com.jogamp.opengl.util.FPSAnimator;
  */
 public class Renderer {
     private static GLWindow window = null;
-    public static int screenWidth = 600;
-    public static int screenHeight = 600;
+    public static int screenWidth = 800;
+    public static int screenHeight = 800;
             
     //Cria a janela de rendeziração do JOGL
     public static void init(){        
